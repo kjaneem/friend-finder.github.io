@@ -5,18 +5,52 @@
 
 var surveyArray = [
   {
-    name: "",
-    photo: "",
-    q1: "",
-    q2: "",
-    q3: "",
-    q4: "",
-    q5: "",
-    q6: "",
-    q7: "",
-    q8: "",
-    q9: "",
-    q10: ""
+  "name":"Yosemite Sam",
+  "photo":"http://yosemitesamquotes.com/wp-content/uploads/Yosemite-Sam-Quotes-300x281.png",
+  "scores":[
+      4,
+      1,
+      3,
+      4,
+      5,
+      1,
+      1,
+      2,
+      4,
+      1
+          ]
+  },
+  {
+  "name":"Bugs Bunny",
+  "photo":"https://images7.alphacoders.com/447/thumb-1920-447631.jpg",
+  "scores":[
+      4,
+      4,
+      3,
+      4,
+      5,
+      2,
+      2,
+      2,
+      2,
+      1
+          ]
+  },
+    {
+  "name":"Daffy Duck",
+  "photo":"http://vignette1.wikia.nocookie.net/looneytunes/images/0/05/Daffy-duck_00402319.png",
+  "scores":[
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+          ]
   }
 ];
 
