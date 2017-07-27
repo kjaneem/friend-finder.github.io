@@ -34,19 +34,19 @@ var surveyArray = [
       2,
       2,
       1
-          ]
+           ]
   },
     {
   "name":"Daffy Duck",
   "photo":"http://vignette1.wikia.nocookie.net/looneytunes/images/0/05/Daffy-duck_00402319.png",
   "scores":[
+      5,
       1,
+      4,
       1,
+      4,
       1,
-      1,
-      1,
-      1,
-      1,
+      2,
       1,
       1,
       1

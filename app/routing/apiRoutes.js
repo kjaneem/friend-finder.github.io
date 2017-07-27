@@ -5,8 +5,7 @@
 // ===============================================================================
 
 var surveyData = require("../data/surveyData");
-//var waitListData = require("../data/waitinglistData");
-
+var matchData = require("../data/matchData");
 
 // ===============================================================================
 // ROUTING
@@ -19,13 +18,11 @@ module.exports = function(app) {
   // (ex: localhost:PORT/api/admin... they are shown a JSON of the data in the table)
   // ---------------------------------------------------------------------------
 
+  //var match;
+  
   app.get("/api/friends", function(req, res) {
     res.json(surveyData);
   });
-
-//   app.get("/api/waitlist", function(req, res) {
-//     res.json(waitListData);
-//   });
 
   // API POST Requests
   // Below code handles when a user submits a form and thus submits data to the server.
@@ -36,32 +33,65 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.post("/api/friends", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-  
-  surveyData.push(req.body);
+    
+    surveyData.push(req.body);
+    res.json(true);
+    
+      //======  ADD THE COMPARE LOGIC HERE ====//
+      var diff = 0;
+      var saveLastName;
+      var saveLastScore;
+      var leastDiff = 5000;
+      var thisGuysIndex;
+      //var match;
 
+      var saveScores = [];
+      for (var i = 0; i < surveyData.length; i++)
+      {
+        var totalScore = 0;
+        var scoreInt = 0;
+        for (var j = 0; j < 10; j++)
+        {
+          scoreInt = parseInt(surveyData[i].scores[j]);
+          totalScore = totalScore + scoreInt;
+          saveScores[i] = totalScore;
+          
+        }
+        console.log("friend#" + i + " score = " + totalScore);
+      
+        saveLastName = surveyData[i].name;
+        saveLastScore = totalScore;
+        console.log("Name = " + saveLastName + " Score = " + saveLastScore);
+      }
+
+      var loopCnt = saveScores.length - 1;
+      for (var x = 0; x < loopCnt; x++)
+      {
+        diff = saveLastScore - saveScores[x];
+        diff = Math.abs(diff);
+
+        if (diff < leastDiff)
+        {
+          leastDiff = diff;
+          thisGuysIndex = x;
+        }
+      }
+
+      matchData.name = surveyData[thisGuysIndex].name;
+      matchData.photo = surveyData[thisGuysIndex].photo;
+      //console.log("Match = " + match);
+      console.log("Match = " + matchData.name);
+      console.log("Match image = " + matchData.photo);
+      
+      //======== END COMPARE LOGIC ====//
+      
   });
 
-//     if (tableData.length < 5) {
-//       tableData.push(req.body);
-//       res.json(true);
-//     }
-//     else {
-//       waitListData.push(req.body);
-//       res.json(false);
-//     }
-//   });
+//=====================START MATCH POST=============================
+app.get("/api/match", function(req, res) {
+//res.send(match);
+res.json(matchData);
+});
+//======================END MATCH POST============================
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
-
-  app.post("/public/clear", function() {
-    // Empty out the arrays of data
-    surveyData = [];
-    //waitListData = [];
-
-    console.log(surveyData);
-  });
 };
